@@ -1,42 +1,54 @@
 // non-destructive version of reverse()
-const arr = ['a', 'b', 'c'];
+let arr = ['b', 'c', 'a', 'd'];
 
-if (!Array.prototype.toReversed) {
-  Array.prototype.toReversed = function () {
+if (!Array.prototype.nonDesctructiveReversed) {
+  Array.prototype.nonDesctructiveReversed = function () {
     return this.slice().reverse();
   };
 }
 console.log('\nnot reversed:', arr);
-console.log('reversed non-destructive way:', arr.toReversed());
+console.log('reversed non-destructive way:', arr.nonDesctructiveReversed());
 console.log(arr);
 
 // non-desructive version of sort()
-const arr2 = ['c', 'a', 'b'];
-if (!Array.prototype.toSorted) {
-  Array.prototype.toSorted = function (compareFn) {
+if (!Array.prototype.nonDesctructiveSort) {
+  Array.prototype.nonDesctructiveSort = function (compareFn) {
     return this.slice().sort(compareFn);
   };
 }
-console.log('\nnot sorted:', arr2);
-console.log('sorted non-destructive way:', arr2.toSorted());
-console.log(arr2);
+console.log('\nnot sorted:', arr);
+console.log('sorted non-destructive way:', arr.nonDesctructiveSort());
+console.log(arr);
 
 // non-desctructive version of splice()
 // It deletes deleteCountIndex(included) elements, starting at index startIndex.
-//It then inserts items at index start.
+//It then inserts elements at index start.
 //It returns the deleted elements.
-if (!Array.prototype.toSpliced) {
-  Array.prototype.toSpliced = function (
+
+if (!Array.prototype.nonDestructiveSplice) {
+  Array.prototype.nonDestructiveSplice = function (
     startIndex,
     deleteCountIndex,
-    ...items
+    ...elements
   ) {
     const copy = this.slice();
-    copy.splice(startIndex, deleteCountIndex, ...items);
+    copy.splice(startIndex, deleteCountIndex, ...elements);
     return copy;
   };
 }
-const arr3 = ['a', 'b', 'c', 'd'];
-console.log('\nnot spliced:', arr3);
-console.log('spliced non-destructive way:', arr3.toSpliced(2, 3, 'x', 'y'));
-console.log(arr3);
+console.log('\nnot spliced:', arr);
+console.log(
+  'spliced non-destructive way:',
+  arr.nonDestructiveSplice(2, 3, 'x', 'y')
+);
+console.log(arr);
+
+// non-destructive version of arr[idx] = val
+if (!Array.prototype.arrIdxVal) {
+  Array.prototype.arrIdxVal = function (index, value) {
+    const copy = this.slice();
+    copy[index] = value;
+    return copy;
+  };
+}
+console.log('\n changes specific idx of arr value:', arr.arrIdxVal(1, 2));
